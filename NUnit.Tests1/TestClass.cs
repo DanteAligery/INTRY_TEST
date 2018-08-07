@@ -53,7 +53,7 @@ namespace NUnit.Tests1
            
             response = await client.GetAsync(mainUri);
 
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
             HttpContent content = response.Content;
             string result = await content.ReadAsStringAsync();
             

@@ -15,20 +15,13 @@ namespace NUnit.Tests1
     [TestFixture]
     public class TestClass
     {
-        //static IWebDriver Cdriver;
         static String realm = "test-squadspace.squadsoft.ru";
         static String userName = "lesnikov";
         static String password = "qoO5QOE9";
-        //public UriBuilder Builder;
         static String URL;
 
-        public void prepare()
-        {
-        //    /
-        }
-
         [Test]
-        public static async Task TestMethodAsync()
+        public static async Task Authorization()
         {
             UriBuilder Builder = new UriBuilder();
             Builder.Scheme = "http";
@@ -43,24 +36,23 @@ namespace NUnit.Tests1
             byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes(basicAUTH);
             String basicAUTHencoded = System.Convert.ToBase64String(data);
             
-            HttpClient client = new HttpClient();
-            
-            //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-            client.DefaultRequestHeaders.Add("WWW-Authenticate", "NTLM");
-            client.DefaultRequestHeaders.Add("WWW-Authenticate", "Basic" + " " + basicAUTHencoded);
-            
-            HttpResponseMessage response = new HttpResponseMessage();
-           
-            response = await client.GetAsync(mainUri);
+            CredentialCache cache = new CredentialCache();
+            cache.Add(mainUri, "NTLM", new NetworkCredential(userName, password,""));
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.AllowAutoRedirect = true;
+            handler.Credentials = cache;
+            HttpClient client = new HttpClient(handler);
+            HttpResponseMessage rs = await client.GetAsync(mainUri);
 
-            //response.EnsureSuccessStatusCode();
-            HttpContent content = response.Content;
-            string result = await content.ReadAsStringAsync();
-            
-        }
-        public void cleanup()
-        {
-            //Cdriver.Quit();
+            if (rs.IsSuccessStatusCode)
+            {
+                Console.WriteLine(rs.StatusCode.ToString());
+            }
+            else
+            {
+                Console.WriteLine("status code: {0}", rs.StatusCode);
+            }
+
         }
     }
 }

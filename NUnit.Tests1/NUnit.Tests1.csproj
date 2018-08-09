@@ -91,7 +91,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestClass.cs" />
+    <Compile Include="GUI\TestClass1.cs" />
+    <Compile Include="API\TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

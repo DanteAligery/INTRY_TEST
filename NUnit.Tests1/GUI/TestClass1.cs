@@ -34,14 +34,7 @@ namespace NUnit.Tests1.GUI
         public void GUIAutorization()
         {
             driver.Manage().Window.Maximize();
-            driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/";
-            //driver.SwitchTo().Alert().SetAuthenticationCredentials("lesnikov", "qoO5QOE9");
-            //driver.SwitchTo().Alert().Accept();
-            //Actions builder = new Actions(driver);
-            //builder.SendKeys(Keys.Tab);
-            //SendKeys.Send("{TAB}"); 
-            // TODO: Add your test code here
-            //Assert.Pass("Your first passing test");
+            //driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/";
             driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
             IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
             tel_field.Click();
@@ -51,6 +44,7 @@ namespace NUnit.Tests1.GUI
             driver.Navigate().Refresh();
 
             IWebElement lastPOSTcellphone = driver.FindElement(By.XPath(last_post_cellphone));
+         
         }
 
 

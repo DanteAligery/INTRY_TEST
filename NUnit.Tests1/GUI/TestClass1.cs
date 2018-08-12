@@ -44,7 +44,7 @@ namespace NUnit.Tests1.GUI
         [TearDown]
         public void close()
         {
-            driver.Close();
+            //driver.Close();
         }
     }
 }

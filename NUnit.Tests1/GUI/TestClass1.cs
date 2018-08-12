@@ -18,6 +18,9 @@ namespace NUnit.Tests1.GUI
     public class TestClass1
     {
         IWebDriver driver;
+        String tel_xpath = "/html/body/form/div[5]/app-intry/div/app-profile-view/div[2]/app-profile-feed-view/app-user-card/div/div/input[2]";
+        String empty = "/html/body/form/div[5]/app-intry";
+        String last_post_cellphone = "/html/body/form/div[5]/app-intry/div/app-profile-view/div[2]/app-profile-feed-view/app-profile-feed/app-post[1]/div/div/div[2]";
 
         [SetUp]
         public void setup()
@@ -39,7 +42,17 @@ namespace NUnit.Tests1.GUI
             //SendKeys.Send("{TAB}"); 
             // TODO: Add your test code here
             //Assert.Pass("Your first passing test");
+            driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
+            IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
+            tel_field.Click();
+            tel_field.SendKeys("cellphone");
+            IWebElement empty_field = driver.FindElement(By.XPath(empty));
+            empty_field.Click();
+            driver.Navigate().Refresh();
+
+            IWebElement lastPOSTcellphone = driver.FindElement(By.XPath(last_post_cellphone));
         }
+
 
         [TearDown]
         public void close()

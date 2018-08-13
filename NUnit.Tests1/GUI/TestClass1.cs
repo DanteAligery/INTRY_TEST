@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NUnit.Tests1.GUI
+namespace INTRY.GUI
 {
     [TestFixture]
     public class TestClass1
@@ -51,7 +51,7 @@ namespace NUnit.Tests1.GUI
         [TearDown]
         public void close()
         {
-            //driver.Close();
+            driver.Close();
         }
     }
 }

@@ -10,7 +10,7 @@ using OpenQA.Selenium.Chrome;
 using System.Net.Http;
 using System.Net;
 
-namespace NUnit.Tests1
+namespace INTRY.API
 {
     [TestFixture]
     public class TestClass

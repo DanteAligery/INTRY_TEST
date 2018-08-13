@@ -126,9 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="conf.js" />
-    <Content Include="EdgeDriver.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

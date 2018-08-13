@@ -17,7 +17,7 @@ using Protractor;
 namespace INTRY.GUI
 {
     [TestFixture]
-    public class system
+    public class Profile
     {
         IWebDriver driver;
         String tel_xpath = "/html/body/form/div[5]/app-intry/div/app-profile-view/div[2]/app-profile-feed-view/app-user-card/div/div/input[2]";
@@ -35,16 +35,27 @@ namespace INTRY.GUI
         }
 
         [Test]
-        public void GUIAutorization()
-        {   
-            
+        public void Cellphone()
+        {
+
             driver.Manage().Window.Maximize();
-
-
-
-            driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/";
             
-            
+            driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
+            IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
+            tel_field.Click();
+            tel_field.SendKeys("cellphone");
+            IWebElement empty_field = driver.FindElement(By.XPath(empty));
+            empty_field.Click();
+            driver.Navigate().Refresh();
+
+            //IWebElement lastPOSTcellphone =  driver.FindElement(By.XPath(last_post_cellphone));
+            ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath(last_post));
+
+            IWebElement lastPOSTcellphone = driver.FindElement(By.XPath(last_post_cellphone));
+            String classn = lastPOSTcellphone.GetAttribute("post__text ng-star-inserted");
+            Console.WriteLine("post__text ng-star-inserted = " + classn);
+
+
         }
 
 

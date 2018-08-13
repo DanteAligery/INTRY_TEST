@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Interactions;
 using RemoteBrowserMobProxy;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Windows.Input;
 using System.Windows.Forms;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace INTRY.GUI
 {
     [TestFixture]
-    public class TestClass1
+    public class bugs
     {
         IWebDriver driver;
         String tel_xpath = "/html/body/form/div[5]/app-intry/div/app-profile-view/div[2]/app-profile-feed-view/app-user-card/div/div/input[2]";
@@ -32,7 +33,8 @@ namespace INTRY.GUI
 
         [Test]
         public void GUIAutorization()
-        {
+        {   
+            
             driver.Manage().Window.Maximize();
             //driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/";
             driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
@@ -43,8 +45,8 @@ namespace INTRY.GUI
             empty_field.Click();
             driver.Navigate().Refresh();
 
-            IWebElement lastPOSTcellphone = driver.FindElement(By.XPath(last_post_cellphone));
-         
+            //IWebElement lastPOSTcellphone =  driver.FindElement(By.XPath(last_post_cellphone));
+            ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath(last_post_cellphone));
         }
 
 

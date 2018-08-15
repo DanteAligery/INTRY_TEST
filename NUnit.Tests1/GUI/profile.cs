@@ -39,15 +39,16 @@ namespace INTRY.GUI
             driver = new ChromeDriver(options);
             ngdriver = new NgWebDriver(driver);
 
-
             driver.Navigate().GoToUrl(profileSTR);
             ngdriver.Url = driver.Url;
+            //ngdriver.Navigate().GoToUrl(profileSTR);
+            //ngdriver.Url = driver.Url;
         }
 
         [Test]
         public void Cellphone()
         {
-            ngdriver.FindElement(NgBy.Binding("post__text ng-star-inserted"));
+           // ngdriver.FindElement(NgBy.Binding("post__text ng-star-inserted"));
             /*
             driver.Manage().Window.Maximize();
             driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";

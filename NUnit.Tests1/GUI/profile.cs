@@ -40,7 +40,7 @@ namespace INTRY.GUI
             ngdriver = new NgWebDriver(driver);
 
             driver.Navigate().GoToUrl(profileSTR);
-            ngdriver.Url = driver.Url;
+            ngdriver.WaitForAngular();
             //ngdriver.Navigate().GoToUrl(profileSTR);
             //ngdriver.Url = driver.Url;
         }
@@ -48,7 +48,7 @@ namespace INTRY.GUI
         [Test]
         public void Cellphone()
         {
-           // ngdriver.FindElement(NgBy.Binding("post__text ng-star-inserted"));
+   
             /*
             driver.Manage().Window.Maximize();
             driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
@@ -73,8 +73,8 @@ namespace INTRY.GUI
         [TearDown]
         public void close()
         {
-            ngdriver.Close();
-            ngdriver.Quit();
+            driver.Close();
+            driver.Quit();
         }
     }
 }

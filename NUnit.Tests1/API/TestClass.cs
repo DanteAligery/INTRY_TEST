@@ -19,6 +19,19 @@ namespace INTRY.API
         static String userName = "lesnikov";
         static String password = "qoO5QOE9";
         static String URL;
+        static String PostPATH = "/_vti_bin/Intry/FeedService.svc/CreateUserPost";
+        public static Uri mainUri;
+        static Uri postURI;
+
+        public void makeURI()
+        {
+
+
+
+
+
+        }
+
 
         [Test]
         public static async Task Authorization()
@@ -28,10 +41,11 @@ namespace INTRY.API
             Builder.Host = realm;
             Uri mainUri = Builder.Uri;
             URL = mainUri.ToString();
-            Console.Write(URL);
+            Console.WriteLine(URL);
+
 
             String basicAUTH = userName + ":" + password;
-            Console.Write(basicAUTH);
+            Console.WriteLine(basicAUTH);
 
             byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes(basicAUTH);
             String basicAUTHencoded = System.Convert.ToBase64String(data);
@@ -43,15 +57,51 @@ namespace INTRY.API
             handler.Credentials = cache;
             HttpClient client = new HttpClient(handler);
             HttpResponseMessage rs = await client.GetAsync(mainUri);
-
+            
             if (rs.IsSuccessStatusCode)
             {
-                Console.WriteLine(rs.StatusCode.ToString());
+                Console.WriteLine("StatusCode: " + rs.StatusCode.ToString());
             }
             else
             {
-                Console.WriteLine("status code: {0}", rs.StatusCode);
+                Console.WriteLine("Status code: ", rs.StatusCode.ToString());
             }
+
+        }
+        [Test]
+        public void post() {
+            UriBuilder Builder = new UriBuilder();
+            Builder.Scheme = "http";
+            Builder.Host = realm;
+            Builder.Path = PostPATH;
+            Uri postURI = Builder.Uri;
+            String postURL = postURI.ToString();
+            Console.WriteLine(postURL);
+
+            
+
+            /*
+		CredentialsProvider credsProvider = new BasicCredentialsProvider();
+	  	credsProvider.setCredentials(AuthScope.ANY, new NTCredentials(userName, password, LentaURl, domain));
+	    CloseableHttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(credsProvider).build();
+	    
+	    HttpPost httpPost = new HttpPost(post);
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        node.put("text", "test");
+        node.put("userId", 8);
+        node.putNull("media");
+        node.putArray("docs");
+        node.putArray("mentions");
+        String json = node.toString();
+        StringEntity ent = new StringEntity(json);
+        httpPost.setEntity(ent);
+        httpPost.addHeader("content-type", "application/json");
+        //System.out.println("Executing request " + httpPost.getRequestLine());
+        CloseableHttpResponse responsePOST = client.execute(httpPost);
+        int answerPOST = responsePOST.getStatusLine().getStatusCode(); 
+            */
+
 
         }
     }

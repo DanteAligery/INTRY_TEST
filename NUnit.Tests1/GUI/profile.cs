@@ -48,17 +48,26 @@ namespace INTRY.GUI
         public void Cellphone()
         {
    
-            /*
-            driver.Manage().Window.Maximize();
-            driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
+            
+            //driver.Manage().Window.Maximize();
+            //driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
+            
             IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
             tel_field.Click();
             tel_field.SendKeys("cellphone");
+            driver.Navigate().Refresh();
+            //ngdriver.FindElement (By.ClassName("post"));
+            NgWebElement lastPOSTcellphone =  ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__text.ng-star-inserted"));
+            String innertext = lastPOSTcellphone.GetAttribute("innerHTML");
+            Console.WriteLine(innertext);
+            //IWebElement lastPOSTcellphone = driver.FindElement(By.ClassName("post__text ng-star-inserted"));
+            //NgWebElement lastPOSTcellphone = ngdriver.FindElement();
+            /*
             IWebElement empty_field = driver.FindElement(By.XPath(empty));
             empty_field.Click();
             driver.Navigate().Refresh();
 
-            //IWebElement lastPOSTcellphone =  driver.FindElement(By.XPath(last_post_cellphone));
+            IWebElement lastPOSTcellphone =  driver.FindElement(By.XPath(last_post_cellphone));
             ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath(last_post));
 
             IWebElement lastPOSTcellphone = driver.FindElement(By.XPath(last_post_cellphone));

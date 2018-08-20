@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Interactions;
-using RemoteBrowserMobProxy;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Windows.Input;

@@ -25,8 +25,10 @@ namespace INTRY.GUI
         String empty = "/html/body/form/div[5]/app-intry";
         String last_post = "/html/body/form/div[5]/app-intry/div/app-profile-view/div[2]/app-profile-feed-view/app-profile-feed/app-post[1]/div";
         String last_post_cellphone = "/html/body/form/div[5]/app-intry/div/app-profile-view/div[2]/app-profile-feed-view/app-profile-feed/app-post[1]/div/div/div[2]";
-        String cellphone = "cellphone";
+        String cellphoneS = "cellphone";
+        String cellphoneN = "1234567890";
         String profileSTR = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
+        String message_number = "Новый номер: ";
 
         [SetUp]
         public void setup()
@@ -45,7 +47,7 @@ namespace INTRY.GUI
         }
 
         [Test]
-        public void Cellphone()
+        public void Cellphone_symbol()
         {
    
             
@@ -53,13 +55,16 @@ namespace INTRY.GUI
             //driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
             
             IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
+            IWebElement empty_field = driver.FindElement(By.XPath(empty));
             tel_field.Click();
-            tel_field.SendKeys("cellphone");
+            tel_field.SendKeys(cellphoneS);
+            empty_field.Click();
             driver.Navigate().Refresh();
             //ngdriver.FindElement (By.ClassName("post"));
             NgWebElement lastPOSTcellphone =  ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__text.ng-star-inserted"));
             String innertext = lastPOSTcellphone.GetAttribute("innerHTML");
             Console.WriteLine(innertext);
+            Assert.That(innertext, Is.Not.EqualTo(message_number));
             //IWebElement lastPOSTcellphone = driver.FindElement(By.ClassName("post__text ng-star-inserted"));
             //NgWebElement lastPOSTcellphone = ngdriver.FindElement();
             /*
@@ -76,7 +81,20 @@ namespace INTRY.GUI
             */
 
         }
-
+        [Test]
+        public void Cellphone_number()
+        {
+            IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
+            IWebElement empty_field = driver.FindElement(By.XPath(empty));
+            tel_field.Click();
+            tel_field.SendKeys(cellphoneN);
+            empty_field.Click();
+            driver.Navigate().Refresh();
+            NgWebElement lastPOSTcellphone = ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__text.ng-star-inserted"));
+            String innertext = lastPOSTcellphone.GetAttribute("innerHTML");
+            Console.WriteLine(innertext);
+            Assert.That(innertext, Is.EqualTo(message_number + cellphoneN));
+        }
 
         [TearDown]
         public void close()

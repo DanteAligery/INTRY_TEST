@@ -33,8 +33,6 @@ namespace INTRY.GUI
         [SetUp]
         public void setup()
         {
-            
-
             var options = new ChromeOptions();
             options.AddArgument("start-maximized");
             driver = new ChromeDriver(options);
@@ -42,44 +40,25 @@ namespace INTRY.GUI
 
             driver.Navigate().GoToUrl(profileSTR);
             ngdriver.WaitForAngular();
-            //ngdriver.Navigate().GoToUrl(profileSTR);
-            //ngdriver.Url = driver.Url;
         }
 
         [Test]
         public void Cellphone_symbol()
         {
-   
-            
-            //driver.Manage().Window.Maximize();
-            //driver.Url = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
-            
             IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
             IWebElement empty_field = driver.FindElement(By.XPath(empty));
             tel_field.Click();
             tel_field.SendKeys(cellphoneS);
             empty_field.Click();
             driver.Navigate().Refresh();
-            //ngdriver.FindElement (By.ClassName("post"));
+            NgWebElement lastpostTime = ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__author.ng-star-inserted > div > span.link-profile__subtext"));
             NgWebElement lastPOSTcellphone =  ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__text.ng-star-inserted"));
             String innertext = lastPOSTcellphone.GetAttribute("innerHTML");
+            String outertext = lastpostTime.GetAttribute("outerText");
             Console.WriteLine(innertext);
+            Console.WriteLine(outertext);
+            Assert.That(outertext, Is.EqualTo("Только что"));
             Assert.That(innertext, Is.Not.EqualTo(message_number));
-            //IWebElement lastPOSTcellphone = driver.FindElement(By.ClassName("post__text ng-star-inserted"));
-            //NgWebElement lastPOSTcellphone = ngdriver.FindElement();
-            /*
-            IWebElement empty_field = driver.FindElement(By.XPath(empty));
-            empty_field.Click();
-            driver.Navigate().Refresh();
-
-            IWebElement lastPOSTcellphone =  driver.FindElement(By.XPath(last_post_cellphone));
-            ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath(last_post));
-
-            IWebElement lastPOSTcellphone = driver.FindElement(By.XPath(last_post_cellphone));
-            String classn = lastPOSTcellphone.GetAttribute("post__text ng-star-inserted");
-            Console.WriteLine("post__text ng-star-inserted = " + classn);
-            */
-
         }
         [Test]
         public void Cellphone_number()
@@ -91,8 +70,12 @@ namespace INTRY.GUI
             empty_field.Click();
             driver.Navigate().Refresh();
             NgWebElement lastPOSTcellphone = ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__text.ng-star-inserted"));
-            String innertext = lastPOSTcellphone.GetAttribute("innerHTML");
+            NgWebElement lastpostTime = ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__author.ng-star-inserted > div > span.link-profile__subtext"));
+            String innertext = lastPOSTcellphone.GetAttribute("innerHTML").ToString();
+            String outertext = lastpostTime.GetAttribute("outerText");
             Console.WriteLine(innertext);
+            Console.WriteLine(outertext);
+            Assert.That(outertext, Is.EqualTo("Только что"));
             Assert.That(innertext, Is.EqualTo(message_number + cellphoneN));
         }
 

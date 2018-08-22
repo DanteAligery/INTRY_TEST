@@ -33,17 +33,40 @@ namespace INTRY.GUI
         String profileSTR = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
         String message_number = "Новый номер: ";
 
-        [SetUp]
+        private static TestCaseData cellnum
+        {
+            get
+            {
+                yield return new TestCaseData("cellphone");
+            }
+        }
+
+        [OneTimeSetUp]
         public void setup()
         {
+            
             var options = new ChromeOptions();
             options.AddArgument("start-maximized");
             driver = new ChromeDriver(options);
             ngdriver = new NgWebDriver(driver);
-
             driver.Navigate().GoToUrl(profileSTR);
             ngdriver.WaitForAngular();
             //lastPOSTcellphone = ngdriver.FindElement(By.CssSelector("#DeltaPlaceHolderMain > app-intry > div > app-profile-view > div.content > app-profile-feed-view > app-profile-feed > app-post:nth-child(2) > div > div > div.post__text.ng-star-inserted"));
+        }
+        
+        [OneTimeTearDown]
+        public void close()
+        {
+            driver.Close();
+            driver.Quit();
+        }
+
+        [Test, TestCaseSource(nameof(cellnum))]
+        public void param(String cell, int expectedResult)
+        {
+            IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
+            IWebElement empty_field = driver.FindElement(By.XPath(empty));
+            tel_field.Click();
         }
 
         [Test]
@@ -130,11 +153,6 @@ namespace INTRY.GUI
             IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
         }
         */
-        [TearDown]
-        public void close()
-        {
-            driver.Close();
-            driver.Quit();
-        }
+
     }
 }

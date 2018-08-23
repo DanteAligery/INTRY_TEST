@@ -2,14 +2,13 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
 using Protractor;
-
+using System.Collections.Generic;
 
 namespace INTRY.GUI
 {
     [TestFixture]
-    public class Profile
+    public class Gui_param
     {
         IWebDriver driver;
         NgWebDriver ngdriver;
@@ -24,6 +23,7 @@ namespace INTRY.GUI
         String profileSTR = "http://lesnikov:qoO5QOE9@test-squadspace.squadsoft.ru/default.aspx/profile/8";
         static String message_number = "Новый номер: ";
 
+
         public static IEnumerable<TestCaseData> cellnum
         {
             get
@@ -31,13 +31,14 @@ namespace INTRY.GUI
                 yield return new TestCaseData(cellphoneL, (message_number + cellphoneL));
                 yield return new TestCaseData(cellphoneN, (message_number + cellphoneN));
                 yield return new TestCaseData(cellphoneS, message_number + cellphoneS);
-                yield return new TestCaseData(cellphoneREAL, (message_number + cellphoneREAL));
+                yield return new TestCaseData(cellphoneREAL, (message_number + cellphoneREAL)); 
             }
         }
 
         [OneTimeSetUp]
         public void setup()
         {
+
             var options = new ChromeOptions();
             options.AddArgument("start-maximized");
             driver = new ChromeDriver(options);
@@ -54,7 +55,8 @@ namespace INTRY.GUI
         }
 
         [Test, TestCaseSource(nameof(cellnum))]
-        public void mobilephone(String a, String expectedresult)
+
+        public void checkphone(String a, String expectedresult)
         {
             IWebElement tel_field = driver.FindElement(By.XPath(tel_xpath));
             IWebElement empty_field = driver.FindElement(By.XPath(empty));

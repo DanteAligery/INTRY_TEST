@@ -107,11 +107,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUI\TestClass1.cs" />
+    <Compile Include="GUI\System.cs" />
     <Compile Include="API\TestClass.cs" />
     <Compile Include="GUI\profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GUI\Gui_param.cs" />
+    <Compile Include="GUI\Lenta.cs" />
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>

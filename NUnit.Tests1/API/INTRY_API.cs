@@ -18,7 +18,7 @@ namespace INTRY.API
     {
         static String realm = "test-squadspace.squadsoft.ru";
         static String userName = "lesnikov";
-        static String password = "qoO5QOE9";
+        static String password = "qoO5QOE90";
         static String URL;
         static String PostPATH = "/_vti_bin/Intry/FeedService.svc/CreateUserPost";
         public static Uri mainUri;
@@ -38,15 +38,16 @@ namespace INTRY.API
             Builder.Host = realm;
             Uri mainUri = Builder.Uri;
             URL = mainUri.ToString();
-            Console.WriteLine(URL);
+            Console.WriteLine("Стучимся на URL: " + URL);
 
 
             String basicAUTH = userName + ":" + password;
-            Console.WriteLine(basicAUTH);
+            Console.WriteLine("Перадаём данные для авторизации: " + basicAUTH);
 
             byte[] data = System.Text.ASCIIEncoding.ASCII.GetBytes(basicAUTH);
             String basicAUTHencoded = System.Convert.ToBase64String(data);
-            
+            Console.WriteLine("Данные для авторизации в base64: " + basicAUTHencoded);
+
             CredentialCache cache = new CredentialCache();
             cache.Add(mainUri, "NTLM", new NetworkCredential(userName, password,""));
             HttpClientHandler handler = new HttpClientHandler();
@@ -57,11 +58,11 @@ namespace INTRY.API
             
             if (rs.IsSuccessStatusCode)
             {
-                Console.WriteLine("StatusCode: " + rs.StatusCode.ToString());
+                Console.WriteLine("Авторизация пройдена. StatusCode: " + rs.StatusCode.ToString());
             }
             else
             {
-                Console.WriteLine("Status code: ", rs.StatusCode.ToString());
+                Console.WriteLine("Авторизация не пройдена. Status code: ", rs.StatusCode.ToString());
             }
 
         }

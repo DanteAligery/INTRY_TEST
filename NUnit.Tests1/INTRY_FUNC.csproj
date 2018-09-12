@@ -117,14 +117,9 @@
     <Compile Include="GUI\System.cs" />
     <Compile Include="API\INTRY_API.cs" />
     <Compile Include="GUI\profile.cs" />
+    <Compile Include="MISC\TestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GUI\Lenta.cs" />
-    <Compile Include="UserControl1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

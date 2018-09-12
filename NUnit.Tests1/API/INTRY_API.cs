@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net;
 using System.Collections.Specialized;
 using Newtonsoft.Json;
+using INTRY.MISC;
 
 namespace INTRY.API
 {
@@ -26,13 +27,24 @@ namespace INTRY.API
         static String CorrectUserPWD = "qoO5QOE9";
         static String IncorrectUserPWD = "HOHOHO";
         static String URL;
-        static String postURL;
         static String PostPATH = "/_vti_bin/Intry/FeedService.svc/CreateUserPost";
         public static Uri mainUri;
-        static Uri postURI;
-        static StreamWriter stream;
-        static StreamReader sr;
+        static StreamWriter Swriter;
+        static StreamReader Sreader;
 
+        public class setupjson
+        {
+            public int userId { get; set; }
+            public string text { get; set; }
+            public Array docs { get; set; }
+            public Array mentions { get; set; }
+        }
+
+        public class setupURL
+        {
+            
+        }
+        
         public static IEnumerable<TestCaseData> loginTestData
         {
             get
@@ -43,27 +55,28 @@ namespace INTRY.API
                 yield return new TestCaseData(IncorrectUserName, IncorrectUserPWD, "Unauthorized");
             }
         }
+        
         [OneTimeSetUp]
         public void setup()
         {
-        }
-        public class post
-        {
-            public int userId { get; set; }
-            public string text { get; set; }
-            public Array docs { get; set; }
-            public Array mentions { get; set; }
+           
+
+
         }
 
+
+        
         [Test, TestCaseSource(nameof(loginTestData))]
         public static async Task authorization(String a, String b, String expectedresult)
         {
+
             UriBuilder Builder = new UriBuilder();
             Builder.Scheme = "http";
             Builder.Host = realm;
             Uri mainUri = Builder.Uri;
             URL = mainUri.ToString();
             Console.WriteLine("Стучимся на URL: " + URL);
+            
 
             String basicAUTH = a + ":" + b;
             Console.WriteLine("Перадаём данные для авторизации: " + basicAUTH);
@@ -79,13 +92,14 @@ namespace INTRY.API
             handler.Credentials = cache;
             HttpClient client = new HttpClient(handler);
             HttpResponseMessage rs = await client.GetAsync(mainUri);
+
             String status = rs.StatusCode.ToString();
-            Console.WriteLine(status);
+            Console.WriteLine("Статус: " + status);
+
             Assert.AreEqual(status, expectedresult);
         }
-
+        
         [Test]
-        //public async Task postAsync() {
         public async Task postAsync() { 
             UriBuilder Builder = new UriBuilder();
             Builder.Scheme = "http";
@@ -119,7 +133,7 @@ namespace INTRY.API
             HttpResponseMessage rs = await client.GetAsync(mainUri);
             Console.WriteLine("Статус авторизации: " + rs.StatusCode.ToString());
 
-            post Postjson = new post()
+            setupjson Postjson = new setupjson()
             {
                 text = "test",
                 userId = 8,
@@ -134,19 +148,21 @@ namespace INTRY.API
             request.ContentType = "application/json";
             request.Method = "POST";
             request.Credentials = cache;
-            using (stream = new StreamWriter(request.GetRequestStream()))
+            using (Swriter = new StreamWriter(request.GetRequestStream()))
             {
-                stream.WriteAsync(json);
-                stream.Flush();
-                stream.Close();
+                Swriter.WriteAsync(json);
+                Swriter.Flush();
+                Swriter.Close();
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            using (sr = new StreamReader(response.GetResponseStream()))
+            using (Sreader = new StreamReader(response.GetResponseStream()))
             {
-                var result = sr.ReadToEnd();
+                var result = Sreader.ReadToEnd();
                 Console.WriteLine("Ответный json: " + result.ToString());
             }
         }
+
+
     }
 }
